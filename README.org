@@ -1,0 +1,22 @@
+* fswitch-mode
+fswitch-mode is a GNU Emacs minor mode for switching quickly between
+buffers with the <f> keys.
+* Setup
+- Clone the repository.
+- Add it to your emacs init:
+#+BEGIN_SRC lisp
+(add-to-list 'load-path "path/to/fswitch-mode")
+(require 'fswitch-mode)
+(fswitch-mode)
+#+END_SRC
+* Usage
+Using fswitch-mode is easy. When fswitch-mode starts, none of the
+<f>-keys are associated with a buffer. When you press an <f>-key that
+is not associated with a buffer fswitch-mode automatically binds that
+buffer to that <f>-key. When you press an <f>-key that is bound to a
+buffer you automatically switch to that buffer. Unbinding an <f>-key
+can be done by prefixing it: eg. C-u <f1>. fswitch-mode also provides
+an interactive function called fswitch-clear which unbinds all
+<f>-keys at once. When you press an <f>-key that has a buffer
+associated with it that has since died, that <f>-key gets
+automatically unbound as well.
