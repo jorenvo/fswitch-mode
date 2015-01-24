@@ -1,3 +1,4 @@
+;; -*- mode: Emacs-Lisp; lexical-binding: t -*-
 ;;; fswitch.el --- minor mode for switching quickly between buffers with the <f> keys
 
 ;; Copyright (C) 2014 Joren Van Onder
@@ -52,19 +53,11 @@
   :lighter " fswitch"
   :global t
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map (kbd "<f1>") (lambda () (interactive) (fswitch 0)))
-	    (define-key map (kbd "<f2>") (lambda () (interactive) (fswitch 1)))
-	    (define-key map (kbd "<f3>") (lambda () (interactive) (fswitch 2)))
-	    (define-key map (kbd "<f4>") (lambda () (interactive) (fswitch 3)))
-	    (define-key map (kbd "<f5>") (lambda () (interactive) (fswitch 4)))
-	    (define-key map (kbd "<f6>") (lambda () (interactive) (fswitch 5)))
-	    (define-key map (kbd "<f7>") (lambda () (interactive) (fswitch 6)))
-	    (define-key map (kbd "<f8>") (lambda () (interactive) (fswitch 7)))
-	    (define-key map (kbd "<f9>") (lambda () (interactive) (fswitch 8)))
-	    (define-key map (kbd "<f10>") (lambda () (interactive) (fswitch 9)))
-	    (define-key map (kbd "<f11>") (lambda () (interactive) (fswitch 10)))
-	    (define-key map (kbd "<f12>") (lambda () (interactive) (fswitch 11)))
-            map))
-
+	    (mapc (lambda (number)
+		    (define-key map
+		      (kbd (concat "<f" (number-to-string (1+ number)) ">"))
+		      (lambda () (interactive) (fswitch number))))
+		  (number-sequence 0 11))
+	    map))
 ;;;###autoload
 (provide 'fswitch-mode)
