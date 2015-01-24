@@ -30,7 +30,7 @@
       (setq fswitch-list (make-list 13 nil))
       (message "unassociated all keys"))))
 
-(defun fswitch (fkey)
+(defun fswitch (fkey &optional buffer)
   (if current-prefix-arg
       ;; clear
       (fswitch-clear fkey)
@@ -42,8 +42,9 @@
 	    (fswitch-clear fkey)
 	    (message (format "%s%d%s" "unassociated <f" (+ fkey 1) "> because buffer is dead"))))
       ;; define
-      (setcar (nthcdr fkey fswitch-list) (current-buffer))
-      (message (format "%s%d%s%s" "associated <f" (+ fkey 1) "> with " (current-buffer))))))
+      (let ((buffer-to-bind (if buffer buffer (current-buffer))))
+	(setcar (nthcdr fkey fswitch-list) buffer-to-bind)
+	(message (format "%s%d%s%s" "associated <f" (+ fkey 1) "> with " buffer-to-bind))))))
 
 ;;;###autoload
 (define-minor-mode fswitch-mode
