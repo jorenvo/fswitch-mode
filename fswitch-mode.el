@@ -59,5 +59,5 @@
 		      (lambda () (interactive) (fswitch number))))
 		  (number-sequence 0 11))
 	    map))
-;;;###autoload
+
 (provide 'fswitch-mode)
